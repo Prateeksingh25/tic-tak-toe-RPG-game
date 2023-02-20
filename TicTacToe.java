@@ -23,7 +23,6 @@ public class TicTacToe {
 				{' ','|',' ','|',' '}, 
 				{'-','+','-','+','-'}, 
 				{' ','|',' ','|',' '}};	
-		//5x5 if we account of symbols that make the board look like a board, positions => [0/2/4][0/2/4]
 		
 		System.out.println("Play against CPU or Human? \n(0 for CPU and 1 for Human)");
 		Scanner scanOpp = new Scanner(System.in);
@@ -38,14 +37,14 @@ public class TicTacToe {
 
 				while(true) {
 					if(currentPlayer) {
-						//'Scanner' = to convert bytes from input stream into characters
+						
 						Scanner scan = new Scanner(System.in);	//here, scanner created
 						System.out.println("Player 'X' enter your position (1-9): ");
 
 						typeCheck1:
-							// to handle bad inputs
+							
 							try {
-								int playerPos = scan.nextInt();		//here, actually input is read, and we want to read the next/new input as Integer
+								int playerPos = scan.nextInt();		
 								while(playerPos>9 || playerPos<1) {
 									System.out.println("Invalid position! Enter valid position: ");
 									playerPos = scan.nextInt();
@@ -62,32 +61,32 @@ public class TicTacToe {
 								currentPlayer = !currentPlayer;
 							}
 							catch(InputMismatchException err) {
-								// err is just a variable
+								
 								System.out.println("You've entered a bad input, please try again!");
 								break typeCheck1;
-							}// end of typeCheck1 label
-					}// end of if block
+							}
+					}
 					else{				
 						if(opponent == 0) {
 							System.out.println("CPU's turn!");
 							Random rand = new Random();
 							int aiPos = rand.nextInt(9) + 1;
 							while(playerPositions.contains(aiPos) || aiPositions.contains(aiPos))
-								aiPos = rand.nextInt(9) + 1;	// produces 0-8 numbers
-							placePiece(gameBoard, aiPos, "ai");		// need a minimax method for cpu position
+								aiPos = rand.nextInt(9) + 1;	
+							placePiece(gameBoard, aiPos, "ai");		
 							aiPositions.add(aiPos);
 							printGameBoard(gameBoard);
 							checkWinner();
 							currentPlayer = !currentPlayer;
 						}				
 						else {	
-							// 'Scanner' = to convert bytes from input stream into characters
-							Scanner scan = new Scanner(System.in);	// here, scanner created
+							
+							Scanner scan = new Scanner(System.in);	
 							System.out.println("Player 'O', enter your position (1-9): ");
 
 							typeCheck2: 
 								try {
-									int aiPos = scan.nextInt();		// here, actually input is read, and we want to read the next/new input as Integer
+									int aiPos = scan.nextInt();		
 									while(aiPos>9 || aiPos<1) {
 										System.out.println("Invalid position! Enter valid position: ");
 										aiPos = scan.nextInt();
@@ -106,33 +105,33 @@ public class TicTacToe {
 								catch(InputMismatchException err) {
 									System.out.println("You've entered a bad input, please try again!");
 									break typeCheck2;
-								}// end of typeCheck2 label
-						}// end of inner else block
-					}// end of else block
-				}// end of while loop
+								}
+						}
+					}
+				}
 			}
 			catch(InputMismatchException err) {
 				System.out.println("You've entered a bad input, please try again!");
 				break oppTypeCheck;
 			}
-		}// end of oppTypeCheck label
-	}// end of ticTacToe function
+		}
+	}
 	
 	
 	public static void printGameBoard(char[][] gameBoard) {	
-		for(char[] row : gameBoard) {		//reads - for each 'char array' called 'row' inside gameBoard array
+		for(char[] row : gameBoard) {		
 			System.out.print("\t");
-			for(char col : row) {		//for each 'char' inside that row
+			for(char col : row) {		
 				System.out.print(col);
-				//we don't want to go next line till all elements in the row are printed so 'print' not 'println'
+				
 			}
 			System.out.println();
-			//next line after each row is printed
+			
 		}
-		// after board is printed, create division
+		
 		System.out.println("\n--------------------");
-		//println(char) => invokes print(char) and then println(void) -> prints the character & \n, goes to new line
-	}// end of printGameBoard function
+		
+	}
 	
 	
 	public static void placePiece(char[][] gameBoard, int pos, String user) {
@@ -171,11 +170,11 @@ public class TicTacToe {
 					gameBoard[4][4] = turn;
 				break;
 		}
-	}// end of placePiece function
+	}
 	
 	
 	public static void checkWinner() {		
-		//we'll save player and ai positions in an array & then check if those arrays have all winning positions in them
+		
 		List<Integer> topRow = Arrays.asList(1,2,3);
 		List<Integer> midRow = Arrays.asList(4,5,6);
 		List<Integer> botRow = Arrays.asList(7,8,9);
@@ -185,7 +184,7 @@ public class TicTacToe {
 		List<Integer> cross1 = Arrays.asList(1,5,9);
 		List<Integer> cross2 = Arrays.asList(7,5,3);
 		
-		//add these in another list so we can use for loop & reuse code
+		
 		List<List<Integer>> winConditions = Arrays.asList(topRow, midRow, botRow, leftCol, midCol, rightCol, cross1, cross2);
 		
 		for(List<Integer> list : winConditions) {
@@ -203,8 +202,8 @@ public class TicTacToe {
 			System.out.println("It's a TIE!");
 			playAgain();
 		}
-		//tie condition out of for loop solved the infinite error
-	}// end of checkWinner function
+		
+	}
 	
 
 	public static void playAgain() {
@@ -219,7 +218,7 @@ public class TicTacToe {
 		else {
 			System.exit(0);
 		}
-	}// end of playAgain function
+	}
 	
-}// end of TicTacToe class
+}
 
